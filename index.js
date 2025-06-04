@@ -5,7 +5,7 @@ dotenv.config();
 export default (app) => {
   app.on(["pull_request.opened", "pull_request.synchronize"], async (context) => {
     try {
-      console.log("Getting PR diff...");
+      console.log("Getting PR diff..");
       const pr = context.payload.pull_request;
       const owner = context.payload.repository.owner.login;
       const repo = context.payload.repository.name;
