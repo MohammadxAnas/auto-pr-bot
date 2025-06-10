@@ -70,7 +70,6 @@ export default (app) => {
         aiSummary = rest.join("Summary:").trim(); 
       }
 
-      console.log("Updating PR title and body..");
       await context.octokit.pulls.update({
         owner,
         repo,
