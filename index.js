@@ -5,7 +5,6 @@ dotenv.config();
 export default (app) => {
   app.on(["pull_request.opened", "pull_request.synchronize"], async (context) => {
     try {
-      console.log("Getting PR diff..");
       const pr = context.payload.pull_request;
       const owner = context.payload.repository.owner.login;
       const repo = context.payload.repository.name;
@@ -20,9 +19,6 @@ export default (app) => {
       );
 
       const diff = diffResponse.data;
-      console.log(diff);
-
-      console.log("Calling Gemini..");
 
       const geminiResponse = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
@@ -56,7 +52,6 @@ export default (app) => {
       const result = await geminiResponse.json();
       const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-      console.log(" Parsing Gemini response..");
       let aiTitle = "AI-generated PR";
       let aiSummary = "";
 
